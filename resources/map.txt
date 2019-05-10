@@ -1,0 +1,7 @@
+,DragonRoom,,,,
+,ThresholdRoom,,,,
+,GoblinRoom,,,,
+,FindSwordRoom,,,,
+,Road,,,,
+TownShop,TownSquare,Road,SalamanderRoom,PouchRoom,StartingLocation
+,PlayersHouse,,,,

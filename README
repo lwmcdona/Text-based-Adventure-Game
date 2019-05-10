@@ -1,0 +1,61 @@
+CMPUT 275 FINAL PROJECT
+1st Partner: Logan McDonald (T/R Section)
+2nd Partner: Veronica Salm (W/F Section)
+
+Project: Text based adventure game with semi-intelligent parser.
+
+RECOMMENDED ACTIONS:
+There is definitely a lot of code to sift through here. This file attempts to explain as much as possible, but here is a list of recommended actions to facilitate understanding the code:
+1. Run the code and play as much of the game as possible. In the process, try:
+	- try typing help if you need a list of basic commands
+	- note that to enter the shop, you must "move west" - you cannot "go to shop"
+	- in the shop, you can buy healing potions and better orb containers - keep this in mind when trying to defeat the final boss! 
+	- try typing "thank you", "sorry", and "aw" - all of which print flavour text
+	- try typing continous actions, separated by the keyword "and". For example:
+		"move west and look" or "look at salamander and attack salamander"
+	- typing look is the best problem solver. Most items have descriptions when you look at them, and sometimes you need to look around to figure out how to progress.
+2. Take a look at the game loop first in game.py. This is the loop that takes input and executes actions, so it is here that it is easiest to gain a better understanding of how the game works. From here, it is easier to see how the game uses the parser to process commands.
+3. Progressively take a look at each of the other files. By examining the description, it is hopeful that a better understanding of the use of each of the classes will result. 
+
+Included files:
+	-items.py: Contains all of the definitions for the item classes used within the game. These are placed either in the shop or loot rooms.
+	-enemies.py: Contains all the enemy classes used in the definition of enemy rooms
+	-game.py: The main gameplay loop. Takes input from the user using the parser and executes actions based upon the current room.
+	-NPCs.py: Contains the ShopKeeper NPC class, the code for running the shop, and two other commented-out NPC classes that were never implemented due to lack of time.
+	-parser.py: Uses a dictionary of available nouns and their corresponding verbs and adjectives from the current room to parse the input.
+	-player.py: The player class with attributes. All action methods are defined within this class.
+	-tiles.py: Defines all rooms used in the game. Each room includes an available actions function which is called by game.py to determine the available actions as well as 			the nouns and their corresponding verbs and adjectives of that room. The nouns and verbs are defined in actions.py and are passed to parser.py for processing.
+	-world.py: processes the map.txt file contained in the resources folder and creates a virtual world for the player to move through.
+	-actions.py: Defines all of the action classes corresponding to a particular method in player.py. Action nouns and verbs are defined here and ultimately passed to the 			parser.
+resources folder:
+	-map.txt: a comma separated file (CSV) organized as a grid with tile names. It can be easily manipulated to change room locations. However, some rooms are specifically 		designed to be 	placed at specific locations relative to the starting location, so it is possible the story may be affected. For example, PouchRoom must be 			placed to the left of the starting room. 
+
+Collaborated Code: This file was collaboratively developed by both partners, as listed above.
+
+The basic idea for most of the code was adapted or copied from http://letstalkdata.com/2014/08/how-to-write-a-text-adventure-in-python/ (Visited March 15, 2017). This was a very basic tutorial on creating a text-based adventure game using object-oriented programming.
+
+Accessories:
+None required
+
+Running the code:
+Download the file. Open a bash terminal. After moving to the correct directory, run the main game loop by typing "python3 game.py" in the terminal. The map will be loaded and the game will start.
+
+NOTE: We recommend that you make your terminal longer (drag the bottom down so it takes up as much of the screen as possible) so you can see more of the game at once.
+
+General Notes: 
+
+Some rooms in tiles.py are hard-coded to be placed in specific spots for the story to progress correctly, and cannot be manipulated. Therefore, although the map can be easily manipulated, not all tiles are interchangeable.
+For example, the PouchRoom must be placed next to the StartingLocation, since battles cannot occur until the player has acquired an orb container.
+Other rooms, such as the Road, adapt to where they are placed.
+
+Note that enemies have an intelligence level. This is related to how intelligently an enemy acts during a battle. ALl enemies have a 50% chance to cast an orb each round, and a 50% chance to attack without casting anything. However, enemies do not choose which orb to cast in the same way each time. Sometimes they choose randomly, sometimes they choose the best possible option for themselves, and rarely, they mess up and choose the best option for the player. See the enemy_cast method in the Player class in player.py and the battle tutorial for more information.
+
+Because of the game's nature, it was very difficult to test every extraneous situation that may arise as the player progresses. Therefore, the player is assumed to act to progress the story, rather than attempt to discover errors in game code. 
+
+Problem Areas:
+
+All noun and verb/adjective combinations are hard-coded into the game. Therefore, there may be some synonyms of particular actions that when processed are not accepted by the game. There may also be some actions that would seem natural but are not defined as part of the code of the game. To attempt to alleviate these difficulties, a help and info function were created to get the player started in using basic commands. There is also a battle tutorial room to give the player an introduction to the battle mechanics of the game, and what actions are available to them.
+
+There is currently no repeat action command. This ability was to be added as a bonus milestone but there was not enough time.
+
+There is also no current means to deal with partial commands if the verb has not been hard-coded into the game. For example, 'choose' will only result in a invalid input flag. To get the command to work properly, it must be placed next to a noun as in 'choose weapon'.
